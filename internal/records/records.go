@@ -78,6 +78,12 @@ func (rm *RecordManager) CreateLongerRecords() {
 			longerType:         "480m",
 			longerTimeDuration: -480 * time.Minute,
 		},
+		{
+			shorterType:        "480m",
+			minShorterRecords:  3, // 3 x 8hr = 24hr
+			longerType:         "1d",
+			longerTimeDuration: -24 * time.Hour,
+		},
 	}
 	// wrap the operations in a transaction
 	rm.app.RunInTransaction(func(txApp core.App) error {
@@ -536,11 +542,12 @@ func deleteOldSystemStats(app core.App) error {
 		retention  time.Duration
 	}
 	recordData := []RecordDeletionData{
-		{recordType: "1m", retention: time.Hour},             // 1 hour
-		{recordType: "10m", retention: 12 * time.Hour},       // 12 hours
-		{recordType: "20m", retention: 24 * time.Hour},       // 1 day
-		{recordType: "120m", retention: 7 * 24 * time.Hour},  // 7 days
-		{recordType: "480m", retention: 30 * 24 * time.Hour}, // 30 days
+		{recordType: "1m", retention: time.Hour},              // 1 hour
+		{recordType: "10m", retention: 12 * time.Hour},        // 12 hours
+		{recordType: "20m", retention: 24 * time.Hour},        // 1 day
+		{recordType: "120m", retention: 7 * 24 * time.Hour},   // 7 days
+		{recordType: "480m", retention: 30 * 24 * time.Hour},  // 30 days
+		{recordType: "1d", retention: 365 * 24 * time.Hour},   // 1 year
 	}
 
 	now := time.Now().UTC()

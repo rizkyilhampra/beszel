@@ -174,6 +174,30 @@ export const chartTimeData: ChartTimeData = {
 		format: (timestamp: string) => formatDay(timestamp),
 		getOffset: (endTime: Date) => timeDay.offset(endTime, -30),
 	},
+	"90d": {
+		type: "1d",
+		expectedInterval: 60_000 * 1440,
+		label: () => t`3 months`,
+		ticks: 12,
+		format: (timestamp: string) => formatDay(timestamp),
+		getOffset: (endTime: Date) => timeDay.offset(endTime, -90),
+	},
+	"6mo": {
+		type: "1d",
+		expectedInterval: 60_000 * 1440,
+		label: () => t`6 months`,
+		ticks: 12,
+		format: (timestamp: string) => formatDay(timestamp),
+		getOffset: (endTime: Date) => timeDay.offset(endTime, -180),
+	},
+	"1y": {
+		type: "1d",
+		expectedInterval: 60_000 * 1440,
+		label: () => t`1 year`,
+		ticks: 12,
+		format: (timestamp: string) => formatDay(timestamp),
+		getOffset: (endTime: Date) => timeDay.offset(endTime, -365),
+	},
 }
 
 /** Format number to x decimal places, without trailing zeros */
